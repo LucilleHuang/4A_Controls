@@ -35,6 +35,10 @@ to avoid introducing a nonlinearity into your controller loop. Create separate v
       BallPosn = 0; // REMOVE this line when the ball is being used on the beam
 
 /* Place your gear angle SATURATOR below */
+if (ref > 0.7)
+  {ref = 0.7;}
+if (ref<-0.7)
+  {ref = -0.7;}
 
 /* Place your inner loop GEAR ANGLE CONTROLLER below */
       eGearAng = ref - GearAng;
