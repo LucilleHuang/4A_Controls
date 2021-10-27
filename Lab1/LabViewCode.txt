@@ -1,22 +1,12 @@
-/* ======== USER INTERFACE TEMPLATE ============= */
-/*  Insert below the code for your scaling, saturation block, and controllers.*/
-
-/*  Variables may be declared on the box border, as shown for the input 
- "Tms" and the output "BallPosn". Variables can also be declared inline as was done for "Temp1". */
-
-float Temp1; 
-
-/*  Shift registers permit previous values of variables to be saved. 
-The output variable "e" is wired to a shift register input on the For Loop border.  
 The inputs "e1" and "e2"are wired  to the corresponding shift register outputs.
  "e1" holds the value of "e" from the previous iteration and "e2" holds the value of "e1" from  the previous iteration. */
 
 /* Place your sensor SCALING here */
 /* NO scaling is provided for the demo */
-float gearGain = 1.381446967743824;
-float gearOffset = -4.33;
+float gearGain = -0.739752175491130;
+float gearOffset = -5.9790;
 BallPosn = posV ;  /* V to V */
-GearAng = (angV + gearOffset) * gearGain;  /* V to V */
+GearAng = (angV  / gearGain) - gearOffset;  /* V to rad */
 /* SCALING end */
 
 if (Loop  < 3) /* all shift registers cleared after 3rd iteration; this statement initializes the shift registers */
@@ -42,6 +32,10 @@ if (ref<-0.7)
 
 /* Place your inner loop GEAR ANGLE CONTROLLER below */
       eGearAng = ref - GearAng;
-      float GearAngK = 1;
+      float GearAngK = -10;
       u = GearAngK * eGearAng;
    }
+} 
+    
+/* ThRef, ThRef1, e, e1 are present, but not used in this demo.  
+However, they will be necessary (at a minimum) when the controllers will be implemented. */
